@@ -14,7 +14,7 @@ export default function NoteDetail({ note }) {
       {/* Ejemplo de como funcionan los arrays */}
       <section className='w-full min-h-64 my-8 p-4 rounded-lg flex flex-col bg-zinc-800 text-white justify-between'>
         <p className='text-lg font-semibold'>Ejemplo Arrays</p>
-        <pre className='text-sm text-white bg-black rounded p-2'>
+        <pre className='text-sm text-white bg-black rounded p-2 overflow-x-auto'>
           <code >
             {note.ejemplo}
           </code>
