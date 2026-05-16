@@ -54,11 +54,11 @@ export default function NoteDetail({ note }) {
         >
           {editingFiled === "title" ? (
             <input
-            type="text"
-            value={formData.title}
-            onChange={(e) => setFormData({...formData, title: e.target.value})}
-            autoFocus
-            className="max-w-xs text-3xl focus:outline-none focus:ring-2 focus:ring-green-300 w-full p-3 rounded m-1 font-semibold leading-10 tracking-tight text-black dark:text-zinc-50"
+              type="text"
+              value={formData.title}
+              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              autoFocus
+              className="max-w-xs text-3xl focus:outline-none focus:ring-2 focus:ring-green-300 w-full p-3 rounded m-1 font-semibold leading-10 tracking-tight text-black dark:text-zinc-50"
             />
           ) : (
             <div className='flex items-center gap-2'>
@@ -71,18 +71,46 @@ export default function NoteDetail({ note }) {
         </div>
       </div>
 
-      <p className='text-justify'>
-        {note.content}
-      </p>
+      <div
+        className='w-full hover:bg-zinc-800 transition-colors cursor-pointer rounded p-3 group'
+        onDoubleClick={() => setEditingField("content")}
+        title="Doble click para editar"
+      >
 
-      {/* Ejemplo de como funcionan los arrays */}
-      <section className='w-full min-h-64 my-8 p-4 rounded-lg flex flex-col bg-zinc-800 text-white justify-between'>
-        <p className='text-lg font-semibold'>Ejemplo Arrays</p>
+        {editingFiled === "content" ? (
+          <textarea
+            value={formData.content}
+            onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+            autoFocus
+            rows={5}
+            className='text-justify focus:outline-none focus:ring-2 focus:ring-green-300 w-full p-3 rounded m-1 text-black dark:text-zinc-50'
+            type="text"
+          />
+        ) : (
+          <div className='flex gap-2 items-center'>
+            <p className='text-justify'>
+              {note.content}
+            </p>
+            <EditPencil />
+          </div>
+        )}
 
-        <div className="relative group">
+      </div>
+
+      {/* Ejemplo de como funcionan */}
+      <section
+        className='w-full min-h-64 my-8 p-4 rounded-lg flex flex-col bg-zinc-800 text-white justify-between group cursor-pointer hover:ring-2 ring-zinc-600'
+        onDoubleClick={() => setEditingField("ejemplo")}
+        title="Doble click para editar"
+      >
+        <div className='flex justify-between'>
+          <div className='flex gap-2 items-center'>
+            <p className='text-lg font-semibold'>Ejemplo</p>
+            <EditPencil />
+          </div>
           <button
             onClick={handleCopy}
-            className="absolute top-2 right-2 cursor-pointer"
+            className="top-2 right-2 cursor-pointer"
           >
 
             {copied ? (
@@ -98,11 +126,23 @@ export default function NoteDetail({ note }) {
               </svg>
             )}
           </button>
-          <pre className='text-sm min-h-64 text-white bg-black rounded p-2 overflow-x-auto'>
-            <code >
-              {note.ejemplo}
-            </code>
-          </pre>
+        </div>
+        <div className="mt-2 group text-green-500">
+
+          {editingFiled === "ejemplo" ? (
+            <textarea
+              value={formData.ejemplo}
+              onChange={(e) => setFormData({ ...formData, ejemplo: e.target.value })}
+              autoFocus
+              className='text-sm min-h-64 bg-black rounded p-2 overflow-x-auto w-full focus:outline-none focus:ring-2 ring-green-200 font-mono resize-none'
+            />
+          ) : (
+            <pre className='text-sm min-h-64 bg-black rounded p-2 overflow-x-auto'>
+              <code >
+                {note.ejemplo}
+              </code>
+            </pre>
+          )}
         </div>
       </section>
 
