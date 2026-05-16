@@ -14,8 +14,8 @@ export default function page() {
 
   const handleDelete = () => {
     if (confirm("Are you sure you want to delete this note?")) {
-      deleteNote(id)
       router.push("/notes")
+      setTimeout(() => deleteNote(id), 100);
     }
   }
 

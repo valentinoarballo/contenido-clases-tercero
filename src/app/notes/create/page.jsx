@@ -2,7 +2,6 @@
 import { useState } from 'react'
 import { useNotes } from '../NotesContext'
 import { useRouter } from 'next/navigation'
-import { categories } from '@/lib/notes'
 
 import Link from 'next/link'
 import React from 'react'
@@ -10,7 +9,12 @@ import React from 'react'
 function CreateNotePage() {
   const router = useRouter()
 
-  const { addNote } = useNotes()
+
+
+  const { addNote, getDynamicCategories } = useNotes()
+
+  const categories = getDynamicCategories()
+
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -52,7 +56,11 @@ function CreateNotePage() {
 
           <div className='flex flex-col'>
             <label className='text-zinc-400'>Category</label>
-            <select className='p-2 border border-zinc-600 rounded-md my-4' value={formData.category_id} onChange={(e) => setFormData({ ...formData, category_id: parseInt(e.target.value) })}>
+            <select
+              className='cursor-pointer p-2 border border-zinc-600 rounded-md my-4'
+              value={formData.category_id}
+              onChange={(e) => setFormData({ ...formData, category_id: String(e.target.value) })}
+            >
               {categories.map((category) => (
                 <option key={category.id} value={category.id}>{category.title}</option>
               ))}

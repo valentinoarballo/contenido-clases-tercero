@@ -1,30 +1,47 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { notes as defaultNotes, categories } from "@/lib/notes";
+import { notes as defaultNotes, categories as defaultCategories } from "@/lib/notes";
 
 const NotesContext = createContext();
 
 export function NotesProvider({ children }) {
 
   const [notes, setNotes] = useState([]);
+  const [categories, setCategories] = useState([]);
+
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
 
-    const saved = window.localStorage.getItem("my_notes");
+    const savedNotes = window.localStorage.getItem("my_notes");
+    const savedCategories = window.localStorage.getItem("my_categories");
 
-    if (saved) {
-      setNotes(JSON.parse(saved));
+    if (savedNotes) {
+      setNotes(JSON.parse(savedNotes));
     } else {
       window.localStorage.setItem("my_notes", JSON.stringify(defaultNotes));
+      setNotes(savedNotes);
     }
 
+    if (savedCategories) {
+      setCategories(JSON.parse(savedCategories));
+    } else {
+      window.localStorage.setItem("my_categories", JSON.stringify(defaultCategories));
+      setCategories(savedCategories);
+    }
   }, [])
 
   const saveNotes = (newNotes) => {
     setNotes(newNotes);
     if (typeof window !== "undefined") {
       window.localStorage.setItem("my_notes", JSON.stringify(newNotes));
+    }
+  }
+
+  const saveCategories = (newCategories) => {
+    setCategories(newCategories);
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("my_categories", JSON.stringify(newCategories));
     }
   }
 
@@ -38,9 +55,24 @@ export function NotesProvider({ children }) {
     saveNotes(newNotes);
   }
 
+  const updateNote = (id, updatedFields) => {
+    const updatedNote = notes.map(note => 
+      String(note.id) === String(id) ? { ...note, ...updatedFields } : note
+    );
+    saveNotes(updatedNote);
+  }
+
   const deleteNote = (id) => {
     const filteredNotes = notes.filter(note => note.id !== id);
     saveNotes(filteredNotes);
+  }
+
+  const addCategories = (title) => {
+    const newCategory = {
+      id: crypto.randomUUID(),
+      title
+    }
+    saveCategories([...categories, newCategory]);
   }
 
   const getNoteById = (id) => notes.find(note => String(note.id) === String(id))
@@ -56,11 +88,19 @@ export function NotesProvider({ children }) {
   if (!isMounted) return null;
 
   return (
-    <NotesContext.Provider value={{ notes, addNote, deleteNote, getNoteById, getDynamicCategories }}>
+    <NotesContext.Provider value={{
+      notes,
+      categories,
+      addNote,
+      updateNote,
+      deleteNote,
+      addCategories,
+      getNoteById,
+      getDynamicCategories
+    }}>
       {children}
     </NotesContext.Provider>
   )
 }
 
 export const useNotes = () => useContext(NotesContext)
-  
