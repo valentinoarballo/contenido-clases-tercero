@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Comandos a ejecutar para tener prisma 
+// npm install prisma@6 --save-dev
+// npm install @prisma/client@6
+// npx prisma init --datasource-provider sqlite
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Category {
+  id Int @id @default(autoincrement()) 
+  title String @unique
+  notes Note[]
+}
+
+model Note {
+  id Int @id @default(autoincrement()) 
+  title String
+  ejemplo String
+  content String
+  createdAt DateTime @default(now())
+
+  categoryId Int
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+}
+
