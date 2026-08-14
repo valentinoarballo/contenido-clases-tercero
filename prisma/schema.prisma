@@ -1,10 +1,15 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// -----------------------------------------------------------------------------
 // Comandos a ejecutar para tener prisma 
 // npm install prisma@6 --save-dev
 // npm install @prisma/client@6
 // npx prisma init --datasource-provider sqlite
+
+// DESPUES DE CAMBIAR COSAS EN ESTE ARCHIVO:
+// npx prisma db push
+// -----------------------------------------------------------------------------
 
 datasource db {
   provider = "sqlite"
@@ -23,8 +28,8 @@ model Category {
 model Note {
   id Int @id @default(autoincrement()) 
   title String
-  ejemplo String
-  content String
+  ejemplo String?
+  content String?
   createdAt DateTime @default(now())
 
   categoryId Int
