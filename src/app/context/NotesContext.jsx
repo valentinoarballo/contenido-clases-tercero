@@ -22,7 +22,7 @@ export function NotesProvider({ children }) {
         setCategories(categoriesRes.data)
 
       } catch (err) {
-        console.err("Error al obtener los datos: ", err)
+        console.error("Error al obtener los datos: ", err)
       } finally {
         setIsMounted(true)
       }
@@ -69,7 +69,7 @@ export function NotesProvider({ children }) {
       const response = await axios.post('/api/categories', { title })
       setCategories((prevCategories) => [...prevCategories, response.data])
     } catch (err) {
-      console.err("Error al crear la categoria: ", err)
+      console.error("Error al crear la categoria: ", err)
     }
   }
 
