@@ -19,7 +19,7 @@ function CreateNotePage() {
     title: "",
     content: "",
     ejemplo: "",
-    categoryId: 1
+    categoryId: ""
   })
 
   const handleSubmit = (e) => {
@@ -61,6 +61,8 @@ function CreateNotePage() {
               value={formData.categoryId}
               onChange={(e) => setFormData({ ...formData, categoryId: String(e.target.value) })}
             >
+                <option disabled={true} >Select Category</option>
+              
               {categories.map((category) => (
                 <option key={category.id} value={category.id}>{category.title}</option>
               ))}
