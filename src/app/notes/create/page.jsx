@@ -1,6 +1,6 @@
 "use client"
 import { useState } from 'react'
-import { useNotes } from '../NotesContext'
+import { useNotes } from '../../context/NotesContext'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
