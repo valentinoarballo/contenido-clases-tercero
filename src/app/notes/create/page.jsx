@@ -16,13 +16,6 @@ function CreateNotePage() {
 
   const categories = getDynamicCategories()
 
-<<<<<<< Updated upstream
-  const [formData, setFormData] = useState({
-    title: "",
-    content: "",
-    ejemplo: "",
-    categoryId: 1
-=======
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(notesSchema),
     defaultValues: {
@@ -31,7 +24,6 @@ function CreateNotePage() {
       ejemplo: "",
       categoryId: "",
     }
->>>>>>> Stashed changes
   })
 
   const onSubmit = (data) => {
@@ -70,11 +62,9 @@ function CreateNotePage() {
               // onChange={(e) => setFormData({ ...formData, categoryId: String(e.target.value) })}
               {...register("categoryId")}
             >
-<<<<<<< Updated upstream
-=======
+
               <option disabled={true} >Select Category</option>
 
->>>>>>> Stashed changes
               {categories.map((category) => (
                 <option key={category.id} value={category.id}>{category.title}</option>
               ))}

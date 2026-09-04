@@ -9,11 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
-<<<<<<< Updated upstream
-=======
+
     "@clerk/nextjs": "^7.8.0",
     "@hookform/resolvers": "^5.9.1",
->>>>>>> Stashed changes
     "@prisma/client": "^6.19.3",
     "axios": "^1.16.1",
     "next": "16.2.1",
