@@ -25,12 +25,12 @@ vi.mock("../context/NotesContext", () => ({
 }))
 
 
-describe("Prueba de integracion para: CreateNotePage", async () => {
+describe("Prueba de integracion para: CreateNotePage", () => {
     beforeEach(() => {
         vi.clearAllMocks()
     })
 
-    it("debe guardar la nota y redirigir a /notes si la info es valida", () => {
+    it("debe guardar la nota y redirigir a /notes si la info es valida", async () => {
         render(<CreateNotePage />)
 
         fireEvent.change(screen.getByPlaceholderText("Title"), {
@@ -52,9 +52,9 @@ describe("Prueba de integracion para: CreateNotePage", async () => {
         fireEvent.click(screen.getByRole("button", { name: /save/i }))
 
         waitFor(() => {
-            expect(mockAddNote).toHaveBeenCalledTimes(2)
+            expect(mockAddNote).toHaveBeenCalledTimes(1)
             expect(mockAddNote).toHaveBeenCalledWith({
-                title: "Titulo OK 123",
+                title: "Titulo OK",
                 content: "Contenido valido con mas de 10 caracteres",
                 ejemplo: "Const variable = 10",
                 categoryId: "cat_1",
