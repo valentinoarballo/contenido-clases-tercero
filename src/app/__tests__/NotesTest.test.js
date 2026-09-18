@@ -67,13 +67,13 @@ describe("Pruebas para notesSchema", () => {
     })
 
     it("debe permitir crear la nota sin el campo ejemplo", () => {
-        const invalidData = {
+        const validData = {
             title: "Titulo OK",
             content: "Contenido valido con mas de 10 caracteres",
             categoryId: "cat_123"
         }
 
-        const result = notesSchema.safeParse(invalidData)
+        const result = notesSchema.safeParse(validData)
 
         expect(result.success).toBe(true)
 
