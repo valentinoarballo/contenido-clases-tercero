@@ -19,6 +19,7 @@ export async function GET() {
         })
         return NextResponse.json(notes)
     } catch (error) {
+        console.log(error)
         return NextResponse.json({ error: "error en el get de notes" }, { status: 500 })
     }
 }
