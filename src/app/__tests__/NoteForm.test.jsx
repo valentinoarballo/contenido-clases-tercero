@@ -51,7 +51,7 @@ describe("Prueba de integracion para: CreateNotePage", () => {
 
         fireEvent.click(screen.getByRole("button", { name: /save/i }))
 
-        waitFor(() => {
+        await waitFor(() => {
             expect(mockAddNote).toHaveBeenCalledTimes(1)
             expect(mockAddNote).toHaveBeenCalledWith({
                 title: "Titulo OK",
