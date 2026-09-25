@@ -41,5 +41,23 @@ describe("Pruebas del custom hook: useNotes", () => {
 
     })
 
+    it("debe agregar una nueva nota con addNote", async () => {
+
+        const newNote = {id: 1, title: "Nota nueva", content: "El contenido de mi nota", ejemplo: "let x", categoryId: "cat_1"}
+
+        axios.post.mockResolvedValueOnce({ data: newNote }) 
+
+        const { result } = renderHook(() => useNotes(), { wrapper })
+
+        await waitFor(() => { expect(result.current.notes).toHaveLength(1)})
+
+        await act( async () => {
+            await result.current.addNote({ title: "Nota nueva", content: "El contenido de mi nota" })
+        })
+
+        expect(axios.post).toHaveBeenCalledWith("/api/notes", {title: "Nota nueva", content: "El contenido de mi nota"})
+
+    })
+
 })
 
